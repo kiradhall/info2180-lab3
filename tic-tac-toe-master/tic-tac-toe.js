@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const boxes = document.querySelectorAll('#board > div')
   const status = document.getElementById('status')
+  const originalStatus = status.textContent;
   
-  let plays = []
   let move = 'X'
 
   const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8], [0,4,8],[2,4,6]]
@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (boxes[wins[i][0]].classList.contains('O') && boxes[wins[i][1]].classList.contains('O') && boxes[wins[i][2]].classList.contains('O')) {
         console.log('Win')
         status.classList.add('you-won')
-        status.textContent = "Congratulations! O is the Winner!"      }
+        status.textContent = "Congratulations! O is the Winner!"
+        }
     }
   };
 
@@ -36,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     div.addEventListener('click', function(){
       div.textContent = move;
-      plays.push(move)
 
       if (move  == 'X'){
        div.classList.add('X')
@@ -48,8 +48,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       didWin();
 
-      move = (move === 'X') ? 'O' : 'X';
+      move = (move === 'X') ? 'O' : 'X'; 
     })
 
   });
+
+  function reset(){
+    status.classList.remove('you-won');
+    status.textContent = originalStatus;
+
+    boxes.forEach((div) => {
+      div.textContent = "";
+      div.classList = 'square'
+    })
+  }
+
+  const NewGame = document.querySelector('.btn');
+
+  NewGame.addEventListener('click', e => {
+    e.preventDefault();
+    reset();})
+
 });
