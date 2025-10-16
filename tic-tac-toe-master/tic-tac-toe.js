@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   boxes.forEach((div) => {
     div.classList.add('square');        
 
-
     div.addEventListener('click', function(){
       div.textContent = move;
       plays.push(move)
@@ -22,7 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       move = (move === 'X') ? 'O' : 'X';
     })
+    
+    div.addEventListener('mouseover', function(div) {
+      div.target.classList.add('hover');
+  });
+
+   div.addEventListener('mouseout', function(div) {
+    div.target.classList.remove('hover');
+  });
+  
 
   });
+
   
 })
