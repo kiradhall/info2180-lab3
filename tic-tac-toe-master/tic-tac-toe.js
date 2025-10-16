@@ -14,18 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Win');
         status.classList.add('you-won')
         status.textContent = "Congratulations! X is the Winner!"
+        return true
       };
 
       if (boxes[wins[i][0]].classList.contains('O') && boxes[wins[i][1]].classList.contains('O') && boxes[wins[i][2]].classList.contains('O')) {
         console.log('Win')
         status.classList.add('you-won')
         status.textContent = "Congratulations! O is the Winner!"
+        return true
         }
     }
   };
 
   boxes.forEach((div) => {
-    div.classList.add('square');   
+    div.classList.add('square');  
 
     div.addEventListener('mouseover', function(div) {
       div.target.classList.add('hover');
@@ -36,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     div.addEventListener('click', function(){
+      
+      if (div.textContent != ''){
+        return
+      }
+
       div.textContent = move;
 
       if (move  == 'X'){
@@ -46,7 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
        div.classList.add('O')
       }
 
-      didWin();
+      if (didWin()){
+        boxes.forEach((div) =>{
+          if (div.textContent == ''){
+            div.textContent = ' ';
+          }
+        })
+      }
 
       move = (move === 'X') ? 'O' : 'X'; 
     })
